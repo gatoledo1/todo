@@ -16,10 +16,11 @@
 .listItemToggle,
 .listItemToggleSelected {
   grid-area: toggle;
-  width: 22px;
+  min-width: 22px;
+  max-width: 22px;
   height: 22px;
   cursor: pointer;
-  border-radius: 999px;
+  border-radius: 11px;
 }
 
 .listItemToggle {
@@ -62,7 +63,7 @@
   color: var(--red-500);
 }
 
-@media (max-width: 360px) {
+/* @media (max-width: 360px) {
   .listItem {
     display: grid;
     grid-template-areas:
@@ -80,4 +81,4 @@
     width: 100%;
     text-align: center;
   }
-}
+} */

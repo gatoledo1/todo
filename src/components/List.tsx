@@ -10,24 +10,16 @@ export interface ITask {
   isDone: boolean;
 }
 
-const tasksRaw: ITask[] = [
-  {
-    content: "",
-    id: "",
-    isDone: false,
-  },
-];
-
 export function List() {
 
-  const [tasks, setTasks] = useState<ITask[]>(tasksRaw);
+  const [tasks, setTasks] = useState<ITask[]>([]);
   const [newTaskText, setNewTaskText] = useState<string>("");
 
   useEffect(() => {
     const storage = localStorage.getItem("items")
     let items = localStorage.getItem("items") !== null ? storage : []
     if(typeof items == "string") {
-      setTasks(JSON.parse(items))
+      setTasks(sortByIsDone(JSON.parse(items)))
     } 
   }, [])
 
