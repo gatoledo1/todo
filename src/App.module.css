@@ -12,3 +12,39 @@
   align-items: center;
   justify-content: center;
 }
+
+.containerScroll {
+  /* overflow: hidden; */
+  max-width: 90vw;
+  border-bottom: 1px solid var(--gray-350);
+}
+
+.tabStorage {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: auto;
+  margin-bottom: -1px;
+}
+
+.tabStorage a {
+  color: var(--gray-300);
+  padding: 10px 16px;
+  white-space: nowrap;
+  border-bottom: 0;
+}
+
+.tabStorage a.active {
+  color: var(--gray-200);
+  border: 1px solid var(--gray-350);
+  border-radius: 8px 8px 0 0;
+  border-bottom-color: var(--gray-600);
+}
+
+.newContext {
+  background: transparent;
+  border: none;
+  color: var(--blue-400);
+  padding: 8px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 16px -4px var(--blue-400);
+}

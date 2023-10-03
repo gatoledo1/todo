@@ -7,12 +7,14 @@ export interface IListContentProps {
   tasks: ITask[];
   onDelete: (taskId: string) => void;
   onSelect: (taskId: string) => void;
+  storageName: string;
 }
 
 export default function ListContent({
   tasks,
   onDelete,
   onSelect,
+  storageName
 }: IListContentProps) {
   const createdTasksCount = tasks.length;
   const doneTasksCount = tasks.filter(
@@ -51,16 +53,25 @@ export default function ListContent({
         <main className={styles.listItensContainer}>
           {tasks.map(({ content, id, isDone }: ITask) => (
             <ListItem
-              onDelete={onDeleteTaskProps}
-              onSelect={onSelectTaskProps}
-              key={`${id}-${content}`}
-              taskId={id}
-              content={content}
-              isDone={isDone}
+            onDelete={onDeleteTaskProps}
+            onSelect={onSelectTaskProps}
+            key={`${id}-${content}`}
+            taskId={id}
+            content={content}
+            isDone={isDone}
             ></ListItem>
           ))}
         </main>
       )}
+      <button className={styles.deleteContext} onClick={() => {
+        const text = "Want to delete your current context?";
+        if (confirm(text) == true) {
+          localStorage.removeItem("todo-" + storageName)
+          location?.reload();
+        } else {
+          return false
+        }
+      }}>Delete context</button>
     </div>
   );
 }
