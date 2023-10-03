@@ -1,12 +1,16 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import styles from "./Header.module.css";
-
 import todoLogo from "../assets/todoLogo.svg";
 
-export function Header() {
+interface Btn {
+  children: ReactNode, 
+}
+
+export function Header({children}: Btn) {
   return (
     <header className={styles.header}>
-      <img src={todoLogo} alt="WebSite Logo" />
+      <img src={todoLogo} style={{marginTop: -8}} alt="WebSite Logo" />
+      {children}
     </header>
   );
 }

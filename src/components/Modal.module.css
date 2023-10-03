@@ -1,0 +1,46 @@
+.modalWindow {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modalWindow > div {
+  position: relative;
+  width: 94%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: var(--gray-600);
+}
+.modalWindow header {
+  font-weight: bold;
+}
+.modalWindow h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
+}
+
+.modalClose {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background-color: transparent;
+  border: 0;
+  color: var(--gray-300);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modalClose:hover {
+  color: var(--red-500);
+}
