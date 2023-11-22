@@ -1,7 +1,9 @@
 import { ClipboardText } from "phosphor-react";
-import { ITask } from "./List";
+import { ITask } from "../types/iTask";
 import styles from "./ListContent.module.css";
 import ListItem from "./ListItem";
+import { useState } from "react";
+import { sorter } from "../utils/sorter";
 
 export interface IListContentProps {
   tasks: ITask[];
@@ -10,12 +12,10 @@ export interface IListContentProps {
   storageName: string;
 }
 
-export default function ListContent({
-  tasks,
-  onDelete,
-  onSelect,
-  storageName
-}: IListContentProps) {
+export default function ListContent({ tasks, onDelete, onSelect, storageName }: IListContentProps) {
+  const [sortBy, setSortBy] = useState("recent");
+  const sortedItems = sorter(tasks, sortBy);
+  
   const createdTasksCount = tasks.length;
   const doneTasksCount = tasks.filter(
     (task: ITask) => task.isDone === true
@@ -36,6 +36,16 @@ export default function ListContent({
           Created
           <span>{createdTasksCount}</span>
         </div>
+        <select
+          className={styles.sortItems}
+          value={sortBy}
+          id="sortSelect"
+          onChange={(e) => setSortBy(e.target.value)}
+        >
+          <option value="alphabetical">Alphabetical</option>
+          <option value="recent">Most Recent</option>
+          <option value="oldest">Oldest</option>
+        </select>
         <div className={styles.listDoneTaskCounter}>
           Done
           <span>
@@ -51,7 +61,7 @@ export default function ListContent({
         </div>
       ) : (
         <main className={styles.listItensContainer}>
-          {tasks.map(({ content, id, isDone }: ITask) => (
+          {sortedItems.map(({ content, id, isDone }: ITask) => (
             <ListItem
             onDelete={onDeleteTaskProps}
             onSelect={onSelectTaskProps}
@@ -63,15 +73,32 @@ export default function ListContent({
           ))}
         </main>
       )}
-      <button className={styles.deleteContext} onClick={() => {
-        const text = "Want to delete your current context?";
-        if (confirm(text) == true) {
-          localStorage.removeItem("todo-" + storageName)
-          location?.reload();
-        } else {
-          return false
-        }
-      }}>Delete context</button>
+      <div className={styles.containerBtns}>
+        <button className={styles.copyContext} onClick={async () => {
+          try {
+            const shareData = {
+              title: 'Shared Tasks',
+              text: JSON.stringify(tasks),
+            };
+
+            await navigator?.share(shareData);
+          } catch (error) {
+            console.error('Erro ao compartilhar:', error);
+
+            await navigator?.clipboard.writeText(JSON.stringify(tasks));
+            confirm('Copied to clipboard!');
+          }
+        }}>Copy context</button>
+        <button className={styles.deleteContext} onClick={() => {
+          const text = "Want to delete your current context?";
+          if (confirm(text) == true) {
+            localStorage.removeItem("todo-" + storageName)
+            location?.reload();
+          } else {
+            return false
+          }
+        }}>Delete context</button>
+      </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ interface Modal {
 
 export default function Modal({setName, onRequestClose}: Modal) {
 	const [value, setValue] = useState("")
+	const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
 		document.body.style.overflow = "hidden";
@@ -23,15 +24,29 @@ export default function Modal({setName, onRequestClose}: Modal) {
     setValue(event.target.value);
   }
 
-	function setLocalStorage() {
-    localStorage.setItem("todo-" + value, JSON.stringify([]))
+	function handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setIsChecked(event.target.checked);
+  }
+
+	async function setLocalStorage() {
+		let clipboardContent = '';
+
+    try {
+      clipboardContent = await navigator.clipboard.readText();
+    } catch (err) {
+      console.error('Erro ao acessar o clipboard:', err);
+    }
+
+    const data = isChecked ? clipboardContent : [];
+
+    localStorage.setItem("todo-" + value, String(data))
 		setName(value)
 		onRequestClose(true)
   }
 
 	return (
 		<div className={styles.modalWindow}>
-      <div>
+      <form>
         <a onClick={() => onRequestClose(false)} className={styles.modalClose}>
 					<XCircle size={24}></XCircle>
 				</a>
@@ -44,10 +59,20 @@ export default function Modal({setName, onRequestClose}: Modal) {
 					onChange={(e) => handleTypeNewTaskText(e)}
 					className={inputStyles.listInputNewTask}
 				/>
+				<label>
+          <input
+						className={styles.inputCheck}
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => handleCheckboxChange(e)}
+          />
+          Import tasks
+        </label>
+
 				<button type="submit" className={inputStyles.listButtonNewTask} onClick={() => setLocalStorage()}>
 					Continue <Plus size={20}></Plus>
 				</button>
-      </div>
+      </form>
     </div>
 	);
 }

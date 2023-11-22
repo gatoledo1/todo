@@ -3,12 +3,7 @@ import React, { FormEvent, ReactNode, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./List.module.css";
 import ListContent from "./ListContent";
-
-export interface ITask {
-  content: string;
-  id: string;
-  isDone: boolean;
-}
+import { ITask } from "../types/iTask";
 
 interface Storage {
   children: ReactNode, 
@@ -56,6 +51,7 @@ export function List({children, storageName}: Storage) {
       content: newTaskText,
       id: uuidv4(),
       isDone: false,
+      created_at: Date.now()
     };
     const newTasksArray = [...tasks, newTask];
 
