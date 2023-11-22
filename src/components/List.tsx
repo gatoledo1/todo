@@ -19,21 +19,12 @@ export function List({children, storageName}: Storage) {
     const storage = localStorage.getItem("todo-" + storageName)
     let items = localStorage.getItem("todo-" + storageName) !== null ? storage : []
     if(typeof items == "string") {
-      setTasks(sortByIsDone(JSON.parse(items)))
+      setTasks(JSON.parse(items))
     } 
   }, [storageName])
 
   function setLocalStorage(array:ITask[]) {
     localStorage.setItem("todo-" + storageName, JSON.stringify(array))
-  }
-
-  function sortByIsDone(newTasksArray: ITask[]) {
-    const newTasksArraySorted = newTasksArray.sort((a, b) => {
-      if (a.isDone === false) return -1;
-      if (a.isDone === true) return 1;
-      return 0;
-    });
-    return newTasksArraySorted;
   }
 
   function handleNewCommentInvalid(event: any) {
@@ -55,7 +46,7 @@ export function List({children, storageName}: Storage) {
     };
     const newTasksArray = [...tasks, newTask];
 
-    setTasks(sortByIsDone(newTasksArray));
+    setTasks(newTasksArray);
 
     setLocalStorage([...tasks, newTask])
     setNewTaskText("");
@@ -73,7 +64,7 @@ export function List({children, storageName}: Storage) {
       return task;
     });
     localStorage.setItem("todo-" + storageName, JSON.stringify(newTasksArray));
-    setTasks(sortByIsDone(newTasksArray));
+    setTasks(newTasksArray);
   }
 
   return (
