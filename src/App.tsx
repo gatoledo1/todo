@@ -8,7 +8,7 @@ function App() {
   const [isModalOpen, setModalIsOpen] = useState(false);
   const [stateLocalStorage, setStateLocalStorage] = useState("");
   const arrayKeyStorage = Object.keys(localStorage).filter(item => item?.startsWith("todo-"))
-    .map((item) => item?.replace("todo-", "")).sort()
+    .map((item) => item?.replace("todo-", ""))
 
   const toggleModal = (addItem: boolean) => {
     if(arrayKeyStorage.length > 0 || addItem) {

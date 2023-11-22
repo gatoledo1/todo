@@ -17,7 +17,7 @@
 .listCreatedTaskCounter {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
   font-size: 0.875rem;
   line-height: 1.7;
   font-weight: bold;
@@ -41,7 +41,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
   font-size: 0.875rem;
   line-height: 1.7;
   font-weight: bold;
@@ -60,6 +60,15 @@
   font-size: 0.75rem;
   background: var(--gray-400);
   color: var(--gray-200);
+}
+
+.sortItems {
+  font-family: "Inter", sans-serif;
+  background: var(--gray-500);
+  color: var(--gray-100);
+  border: 1px solid var(--gray-350);
+  padding: 6px;
+  border-radius: 6px;
 }
 
 .emptyList {
@@ -84,7 +93,24 @@
   width: 100%;
 }
 
+.containerBtns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+
 .deleteContext {
+  margin-top: 3rem;
+  background: transparent;
+  border: none;
+  color: var(--red-500);
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 16px -4px var(--red-500);
+}
+
+.copyContext {
   margin-top: 3rem;
   background: transparent;
   border: none;
