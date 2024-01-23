@@ -38,18 +38,30 @@ export function List({children, storageName}: Storage) {
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
-    const newTask = {
-      content: newTaskText,
-      id: uuidv4(),
-      isDone: false,
-      created_at: Date.now()
-    };
-    const newTasksArray = [...tasks, newTask];
-
-    setTasks(newTasksArray);
-
-    setLocalStorage([...tasks, newTask])
-    setNewTaskText("");
+    if(newTaskText.includes(",")) {
+      const arrayNewTaskText = newTaskText.split(",")
+      const newTasks = arrayNewTaskText.map(item => {
+        return {
+          content: item,
+          id: uuidv4(),
+          isDone: false,
+          created_at: Date.now()
+        }
+      })
+      setTasks([...tasks, ...newTasks]);
+      setLocalStorage([...tasks, ...newTasks])
+      setNewTaskText("");
+    } else {
+      const newTask = {
+        content: newTaskText,
+        id: uuidv4(),
+        isDone: false,
+        created_at: Date.now()
+      };
+      setTasks([...tasks, newTask]);
+      setLocalStorage([...tasks, newTask])
+      setNewTaskText("");
+    }
   }
 
   function deleteTask(taskId: string) {
