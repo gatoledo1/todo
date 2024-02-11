@@ -49,6 +49,6 @@ a, button {
   outline: transparent;
 }
 
-[data-rbd-drag-handle-context-id="1"] {
+[data-rbd-drag-handle-context-id] {
   margin-bottom: 10px;
 }
