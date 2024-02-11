@@ -48,3 +48,7 @@ a, button {
 :focus {
   outline: transparent;
 }
+
+[data-rbd-drag-handle-context-id="1"] {
+  margin-bottom: 10px;
+}
