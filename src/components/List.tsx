@@ -107,6 +107,7 @@ export function List({children, storageName}: Storage) {
             onDelete={deleteTask}
             onSelect={selectTask}
             tasks={tasks}
+            setTasks={setTasks}
             storageName={storageName}
           ></ListContent>
         </div>

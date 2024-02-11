@@ -1,6 +1,6 @@
 import { ITask } from "../types/iTask";
 
-export const sorter = (task: ITask[], sortBy: string) => {
+export const sorter = (tasks: ITask[], sortBy: string = "") => {
 
   const sortOptions = {
     alphabetical: (a: { content: string }, b: { content: string }) => a.content.localeCompare(b.content),
@@ -11,5 +11,5 @@ export const sorter = (task: ITask[], sortBy: string) => {
   };
 
   //@ts-ignore
-  return [...task].sort(sortOptions[sortBy] || []);
+  return sortBy !== "" ? [...tasks].sort(sortOptions[sortBy] || []) : tasks;
 }
